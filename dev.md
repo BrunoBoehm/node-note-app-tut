@@ -42,3 +42,41 @@ It doesn't export anything (functions or values) but that's fine!
 
 Inside of notes.js if we `module.exports.age = 25;` (module is a global object available to all of our files once we require the file, we can get the age like so `console.log(notes.age);`
 
+## S3.L11 Using NPM modules
+Packages are regular node code and solve most of your functional problems without reinventing the wheel.
+jQuery and React also live on npm.
+
+`npm -v` to get your version.
+Type `npm init` to get started. It will create the `package.json`.
+
+We install lodash that contains utilities that make dev easier. https://www.npmjs.com/package/lodash
+Install it with `npm install lodash --save`. the `--save` flag will update the `package.json` in `dependencies`.
+```json
+{
+  "name": "note-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bruno B",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.10"
+  }
+}
+```
+
+We can now require it.
+```js
+const _ = require('lodash');
+
+console.log( _.isString("Bruno") );
+
+var filteredArray = _.uniq([1, 1, 3, 4, 5, 5])
+console.log(filteredArray);
+```
+
+The node modules is not to be put in source controle. Inside of the `.gitignore` you can write `node_modules`.
+If you erase it or start and existing node project, you can install all necessary modules with `npm install`.

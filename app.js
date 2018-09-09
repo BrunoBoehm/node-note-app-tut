@@ -4,11 +4,18 @@ console.log("starting app.js");
 const fs = require('fs');
 const os = require('os');
 const notes = require('./notes.js');
+const _ = require('lodash');
 
-var user = os.userInfo();
+console.log( _.isString(true) );
+console.log( _.isString("Bruno") );
+
+var filteredArray = _.uniq([1, 1, 3, 4, 5, 5])
+console.log(filteredArray);
+
+// var user = os.userInfo();
 // console.log(user);
 
-console.log(notes.age);
+// console.log(notes.age);
 
 // fs.appendFile('greetings.txt', `Hello ${user.username}, you are ${notes.age}`, function (err) {
 //     if (err) {
@@ -16,8 +23,8 @@ console.log(notes.age);
 //     }
 // });
 
-var res = notes.addNote();
-console.log(res);
+// var res = notes.addNote();
+// console.log(res);
 
-var sum = notes.add(3, 3);
-console.log(sum);
+// var sum = notes.add(3, 3);
+// console.log(sum);
