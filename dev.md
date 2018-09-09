@@ -82,7 +82,7 @@ The node modules is not to be put in source controle. Inside of the `.gitignore`
 If you erase it or start and existing node project, you can install all necessary modules with `npm install`.
 
 ## S3.L12 Nodemon to restart the app
-We use `npm install -g`.
+We use `npm install nodemon -g`.
 Global utility in the machine, you run it from the terminal.
 You can use it from the terminal `nodemon app.js`.
 
@@ -195,3 +195,37 @@ Yargs { _: [ 'add' ],
 Adding new note
 Adding note:  secret this is my secret
 ```
+
+## JSON
+We know how to parse the input.
+No we need to read and write JSON in our filesystem.
+
+We can create objects in Javascript and use `JSON.stringify()` to turn them into a JSON string like
+```json
+{"name":"Bruno"}
+```
+Note how they use double quotes.
+
+The other way round we can parse a JSON (JSON is just a string) to a javascript object using `JSON.parse()`.
+```js
+var personString = '{"name": "Bruno", "age": 20}';
+var personObj = JSON.parse(personString);
+```
+
+Let's use the filesystem to write and read to a JSON file.
+```js
+const fs = require('fs');
+var originalNote =  {
+    title: "Some title",
+    body: "Some body"
+}
+
+var originalNoteString = JSON.stringify(originalNote);
+fs.writeFileSync("notes.json", originalNoteString);
+
+var noteString = fs.readFileSync('notes.json');
+var note = JSON.parse(noteString);
+console.log(typeof noteString);
+console.log(note.title);
+```
+We can `cd` in the playground folder and run `nodemon json.js`.
