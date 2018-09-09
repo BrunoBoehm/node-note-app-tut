@@ -229,3 +229,69 @@ console.log(typeof noteString);
 console.log(note.title);
 ```
 We can `cd` in the playground folder and run `nodemon json.js`.
+
+## S3L16 Adding and Saving Notes
+We use a `try` (code that may or may not contain an error) and `catch` to make sure to create the file if it doesn't exist. 
+```js
+const fs = require('fs');
+
+var addNote = (title, body) => {
+    var notes = [];
+    var note = {
+        title, // similar to     title: title   in ES6
+        body
+    };
+
+    try {
+        // (try to) get existing notes
+        var notesString = fs.readFileSync('notes-data.json');
+        notes = JSON.parse(notesString);
+    } catch(e) {
+    }
+
+    // add new note to the array
+    notes.push(note);
+
+    // update the file
+    fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+};
+```
+
+We can improve this by testing for existing title by adding
+```js
+const fs = require('fs');
+
+var addNote = (title, body) => {
+    var notes = [];
+    var note = {
+        title, // similar to     title: title   in ES6
+        body
+    };
+
+    try {
+        // (try to) get existing notes
+        var notesString = fs.readFileSync('notes-data.json');
+        notes = JSON.parse(notesString);
+    } catch(e) {
+    }
+
+    var duplicateNotes = notes.filter( (note) => note.title === title );
+    if (duplicateNotes.length === 0) {
+        // add new note to the array
+        notes.push(note);
+
+        // update the file
+        fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+    };
+};
+```
+
+Note the similar code (ES6)
+```js
+    var duplicateNotes = notes.filter( (note) => {
+        return note.title === title
+    });
+
+    // same as 
+        var duplicateNotes = notes.filter( (note) => note.title === title );
+```
