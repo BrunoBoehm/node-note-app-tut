@@ -85,3 +85,30 @@ If you erase it or start and existing node project, you can install all necessar
 We use `npm install -g`.
 Global utility in the machine, you run it from the terminal.
 You can use it from the terminal `nodemon app.js`.
+
+## S3.L13 Getting user input
+When working with the terminal `node app.js list` we can access the additional "list" command line argument from our files with
+```js
+console.log(process.argv);
+// argument vector (array)
+```
+We can get user input from the terminal like so
+```js
+var command = process.argv[2];
+console.log('Command: ', command);
+
+if (command === 'add') {
+    console.log('Adding new note');
+} else if (command === 'list') {
+    console.log('Listing all notes');
+} else if (command === 'read') {
+    console.log('Reading');
+} else if (command === 'remove') {
+    console.log('Removing note');
+} else {
+    console.log('Command not recognized');
+}
+```
+
+We can get even more previse with `node app.js remove --title="secret 2"` (make sure you use double quotes).
+We will use the third party module called Yarg that will return an object.
