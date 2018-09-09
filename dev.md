@@ -1,4 +1,4 @@
-## Modules in node
+## S3L9 . Modules in node
 Units of functionality
 
 `require` lets you load in modules (in node (like http) or third party (like express) and our files).
@@ -35,3 +35,10 @@ fs.appendFile('greetings.txt', `Hello ${user.username}`, function (err) {
     }
 });
 ```
+
+## S3.L10 Exports and requiring our own files
+We can require the new "notes.js" file from our main "app.js" file.
+It doesn't export anything (functions or values) but that's fine!
+
+Inside of notes.js if we `module.exports.age = 25;` (module is a global object available to all of our files once we require the file, we can get the age like so `console.log(notes.age);`
+
