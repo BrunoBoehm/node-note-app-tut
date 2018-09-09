@@ -80,3 +80,8 @@ console.log(filteredArray);
 
 The node modules is not to be put in source controle. Inside of the `.gitignore` you can write `node_modules`.
 If you erase it or start and existing node project, you can install all necessary modules with `npm install`.
+
+## S3.L12 Nodemon to restart the app
+We use `npm install -g`.
+Global utility in the machine, you run it from the terminal.
+You can use it from the terminal `nodemon app.js`.
