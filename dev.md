@@ -295,3 +295,6 @@ Note the similar code (ES6)
     // same as 
         var duplicateNotes = notes.filter( (note) => note.title === title );
 ```
+
+## S3L17 Refactoring
+We can refactor `fetchNotes()` and `saveNote()`.
