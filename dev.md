@@ -298,3 +298,27 @@ Note the similar code (ES6)
 
 ## S3L17 Refactoring
 We can refactor `fetchNotes()` and `saveNote()`.
+
+## S3L18 Removing Notes
+We can use `filter` to filter out by title.
+```js
+var removeNote = (title) => {
+    var notes = fetchNotes();
+
+    // filter notes, remove one with same title
+    var filteredNotes = notes.filter( (note) => note.title !== title );
+
+    // save new notes array
+    saveNotes(filteredNotes);
+    
+    return notes.length !== filteredNotes.length;
+}
+```
+
+And then print the right message based on the boolean returned by our `removeNote` function.
+```js
+} else if (command === 'remove') {
+    var noteRemoved = notes.removeNote(argv.title);
+    var message = noteRemoved ? "Note was removed" : "Note not found" ;
+    console.log(message);
+```
