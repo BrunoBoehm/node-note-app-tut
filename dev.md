@@ -112,3 +112,86 @@ if (command === 'add') {
 
 We can get even more previse with `node app.js remove --title="secret 2"` (make sure you use double quotes).
 We will use the third party module called Yarg that will return an object.
+
+## S3L14 Using Yargs
+Install with `npm install yargs@4.7.1 --save`.
+
+Here is the difference
+```bash
+// ♥ node app.js remove --title "secrets from the north"
+starting app.js
+starting notes.js
+Command:  remove
+Yargs { _: [ 'remove' ],
+  title: 'secrets from the north',
+  '$0': 'app.js' }
+Removing note
+```
+
+Let's improve our notes.js exported functionalities. We can export an object that contains the function.
+```js
+var addNote = (title, body) => {
+    console.log('Adding note: ', title, body);
+};
+
+var getAll = () => {
+    console.log("Getting all notes")
+}
+
+var getNote = (title) => {
+    console.log("Getting note:", title)
+}
+
+var removeNote = (title) => {
+    console.log("Removing note:", title)
+}
+
+module.exports =  {
+    addNote,
+    // addNotes: addNote (in ES6)
+    getAll, 
+    getNote,
+    removeNote
+}
+```
+And use it in our app.js file (since we require notes.js).
+```js
+const yargs = require('yargs');
+
+const notes = require('./notes.js');
+const argv = yargs.argv;
+
+var command = process.argv[2];
+console.log('Command: ', command);
+console.log('Yargs', argv);
+
+if (command === 'add') {
+    console.log('Adding new note');
+    notes.addNote(argv.title, argv.body);
+} else if (command === 'list') {
+    notes.getAll();
+    console.log('Listing all notes');
+} else if (command === 'read') {
+    notes.getNote(argv.title);
+    console.log('Reading');
+} else if (command === 'remove') {
+    notes.removeNote(argv.title);
+    console.log('Removing note');
+} else {
+    console.log('Command not recognized');
+}
+```
+
+We can get several inputs
+```bash
+node app.js add --title "secret" --body "this is my secret"
+starting app.js
+starting notes.js
+Command:  add
+Yargs { _: [ 'add' ],
+  title: 'secret',
+  body: 'this is my secret',
+  '$0': 'app.js' }
+Adding new note
+Adding note:  secret this is my secret
+```
